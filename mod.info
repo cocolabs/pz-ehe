@@ -1,7 +1,7 @@
-name=Fallen Helicopter
+name=Expanded Helicopter Event
 poster=poster.png
-description=Expand he helicopter event
-id=pz-fallen-heli
-url=https://github.com/real-coco-labs/pz-fallen-heli
+description=Makes helicopter events great again!
+id=pz-ehe
+url=https://github.com/real-coco-labs/pz-ehe
 modversion=0.1.0
 pzversion=41.50-IWBUMS
