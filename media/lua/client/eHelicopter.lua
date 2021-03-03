@@ -46,3 +46,17 @@ function eHelicopter:launch()
 	eHelicopter.soundRef = ref
 end
 
+--used only for testing purposes
+Events.OnCustomUIKey.Add(function(key)
+
+	if key == Keyboard.KEY_0 then
+		eHelicopter:launch()
+	elseif key == Keyboard.KEY_9 then
+		if eHelicopter.emitter then
+			eHelicopter.emitter:stopAll()
+			ModLogger:debug("Stopping helicopter emitter")
+		else
+			ModLogger:error("Unable to find helicopter emitter!")
+		end
+	end
+end)
