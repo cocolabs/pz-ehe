@@ -42,3 +42,7 @@ end
 function ModLogger:debug(msg)
 	write(msg, "DEBUG")
 end
+
+Events.OnInitWorld.Add(function()
+	ModLogger:initialize("EHE")
+end)
