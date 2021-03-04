@@ -1,0 +1,31 @@
+module Base
+{
+	model Vehicles_UH1Crash
+	{
+		mesh = vehicles/Vehicles_UH1Crash,
+		shader = vehicle,
+		static = TRUE,
+		scale = 0.01,
+	}
+	vehicle UH1Crash
+	{
+		model
+		{
+			file = Vehicles_UH1Crash,
+			scale = 0.2200,
+			offset = -0.8636 0.7775 5.2632,
+		}
+
+		spawnOffsetY = 0.24999994,
+
+		skin
+		{
+			texture = Vehicles/Vehicles_UH1Crash,
+		}
+
+		extents = 10.5933 27.1579 41.2632,
+		mass = 500,
+		centerOfMassOffset = 0.0000 0.3684 -0.6842,
+		physicsChassisShape = 10.7751 0.7368 41.2632,
+	}
+}
