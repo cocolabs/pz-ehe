@@ -45,3 +45,8 @@ if (project.ext.has('gameDir'))
 
     defaultTasks 'showModInfo'
 }
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.1'
+}

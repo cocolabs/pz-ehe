@@ -24,6 +24,7 @@ classes.dependsOn(zomboidClasses)
 configurations {
     runtimeOnly.extendsFrom zomboidRuntimeOnly
     implementation.extendsFrom zomboidImplementation
+	testImplementation.extendsFrom zomboidImplementation
 }
 dependencies {
 	// Project Zomboid libraries
