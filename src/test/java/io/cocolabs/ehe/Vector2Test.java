@@ -25,6 +25,26 @@ class Vector2Test {
     }
 
     @Test
+    void shouldHomeToTargetPositionWithSpeed() {
+        Vector2 player = getRandomVector(75, 250);
+        Helicopter normalHelicopter = new Helicopter();
+
+        int stepsWithDefaultSpeed = 0;
+        for (;normalHelicopter.getDistanceTo(player) > 1; stepsWithDefaultSpeed++) {
+            normalHelicopter.moveToPosition(player);
+        }
+        String format = "Normal helicopter took %d steps to reach target";
+        System.out.printf(format, stepsWithDefaultSpeed);
+
+        Helicopter fasterHelicopter = new Helicopter(new Vector2(1, 1), 2.0f);
+
+        int stepsWithFastSpeed = 0;
+        for (;fasterHelicopter.getDistanceTo(player) > 1; stepsWithFastSpeed++) {
+            fasterHelicopter.moveToPosition(player);
+        }
+        System.out.printf(format, stepsWithFastSpeed);
+
+    @Test
     void shouldHomeToMovingTargetPosition() {
 
         Vector2 helicopter = new Vector2(1, 1);
