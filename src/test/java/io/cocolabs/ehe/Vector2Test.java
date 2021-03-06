@@ -1,8 +1,6 @@
 package io.cocolabs.ehe;
 
 import org.junit.jupiter.api.Test;
-import zombie.GameTime;
-import zombie.iso.IsoUtils;
 import zombie.iso.Vector2;
 
 import java.util.Random;
@@ -14,6 +12,7 @@ class Vector2Test {
     @Test
     void shouldHomeToTargetPosition() {
 
+        //while these are vectors they are being utilized as coord pairs
         Vector2 player = getRandomVector(75, 250);
         Helicopter helicopter = new Helicopter();
 
