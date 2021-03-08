@@ -47,21 +47,31 @@ class Vector2Test {
     @Test
     void shouldHomeToMovingTargetPosition() {
 
-        Vector2 helicopter = new Vector2(1, 1);
         //while these are vectors they are being utilized as coord pairs
         Vector2 player = getRandomVector(75, 250);
+        Helicopter helicopter = new Helicopter();
 
-        for (int i = 0; helicopter.distanceTo(player) > 1; i++)
+        float startPosDist = helicopter.getDistanceTo(player);
+        System.out.println("\n" + "startPosDist:" + startPosDist + "\n");
+
+        int[][] array = new int[][] {
+                new int[] { 20, 30 },
+                new int[] { 35, 40 },
+                new int[] { 60, 90 },
+        };
+
+        int turns = 0;
+        for (int i = 0; helicopter.getDistanceTo(player) > helicopter.getDistanceTraveled(); i++)
         {
-            Vector2 cloned = helicopter.clone();
-            cloned.aimAt(player);
+            if (turns < 3 && (helicopter.getDistanceTo(player) > (startPosDist/(turns+1))) )
+            {
+                player.x = array[turns][0];
+                player.y = array[turns][1];
+                turns++;
 
-            cloned.normalize();
-            cloned.setLength(0.5F);
-
-            helicopter.x += cloned.x;
-            helicopter.y += cloned.y;
-
+                System.out.println("--player_pos: x:" + player.x + " y:" + player.x + " heli 2 player:" + helicopter.getDistanceTo(player));
+            }
+            helicopter.moveToPosition(player);
             System.out.println("i:" + i + ' ' + helicopter);
         }
     }
