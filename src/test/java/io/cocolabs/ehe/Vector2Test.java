@@ -29,24 +29,26 @@ class Vector2Test {
         Helicopter normalHelicopter = new Helicopter();
 
         int stepsWithDefaultSpeed = 0;
-        for (;normalHelicopter.getDistanceTo(player) > 1; stepsWithDefaultSpeed++) {
+        for (; normalHelicopter.getDistanceTo(player) > 1; stepsWithDefaultSpeed++) {
             normalHelicopter.moveToPosition(player);
         }
-        String format = "Normal helicopter took %d steps to reach target";
+        String format = "Normal helicopter took %d steps to reach target\n";
         System.out.printf(format, stepsWithDefaultSpeed);
 
         Helicopter fasterHelicopter = new Helicopter(new Vector2(1, 1), 2.0f);
 
         int stepsWithFastSpeed = 0;
-        for (;fasterHelicopter.getDistanceTo(player) > 1; stepsWithFastSpeed++) {
+        for (; fasterHelicopter.getDistanceTo(player) > 1; stepsWithFastSpeed++) {
             fasterHelicopter.moveToPosition(player);
         }
         System.out.printf(format, stepsWithFastSpeed);
+    }
 
     @Test
     void shouldHomeToMovingTargetPosition() {
 
         Vector2 helicopter = new Vector2(1, 1);
+        //while these are vectors they are being utilized as coord pairs
         Vector2 player = getRandomVector(75, 250);
 
         for (int i = 0; helicopter.distanceTo(player) > 1; i++)
