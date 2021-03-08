@@ -27,7 +27,7 @@ public class Helicopter {
         movement.setLength(speed);
 
 
-        float lastDistance = movement.distanceTo(destination);
+        float lastDistance = position.distanceTo(destination);
 
         position.x += movement.x;
         position.y += movement.y;
