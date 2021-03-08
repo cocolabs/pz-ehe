@@ -20,16 +20,17 @@ public class Helicopter {
 
     public void moveToPosition(Vector2 destination) {
 
-        Vector2 cloned = position.clone();
-        cloned.aimAt(destination);
+        Vector2 movement = position.clone();
+        movement.aimAt(destination);
 
-        cloned.normalize();
-        cloned.setLength(speed);
+        movement.normalize();
+        movement.setLength(speed);
 
-        float lastDistance = cloned.distanceTo(destination);
 
-        position.x += cloned.x;
-        position.y += cloned.y;
+        float lastDistance = movement.distanceTo(destination);
+
+        position.x += movement.x;
+        position.y += movement.y;
 
         distanceTraveled += lastDistance - position.distanceTo(destination);
     }
