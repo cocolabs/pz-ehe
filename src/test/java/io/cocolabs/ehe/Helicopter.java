@@ -26,8 +26,8 @@ public class Helicopter {
         movement.normalize();
         movement.setLength(speed);
 
-        movement.x *= ((destination.x - position.x)/destination.x);
-        movement.y *= ((destination.y - position.y)/destination.y);
+        movement.x *= Math.max(0.1f,((destination.x - position.x)/destination.x));
+        movement.y *= Math.max(0.1f,((destination.y - position.y)/destination.y));
 
         float lastDistance = position.distanceTo(destination);
 
