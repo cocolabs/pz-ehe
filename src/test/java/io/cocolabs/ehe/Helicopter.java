@@ -45,9 +45,15 @@ public class Helicopter {
         this.speed = speed;
     }
 
+    public float getSpeed() { return this.speed; }
+
     public float getDistanceTraveled() {
         return distanceTraveled;
     }
+
+    public float getPositionX() { return this.position.x; }
+
+    public float getPositionY() { return this.position.y; }
 
     @Override
     public String toString() {
