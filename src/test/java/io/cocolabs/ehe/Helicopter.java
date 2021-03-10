@@ -18,7 +18,7 @@ public class Helicopter {
         this.speed = speed;
     }
 
-    public void moveToPosition(Vector2 destination) {
+    public Vector2 setUpMovement(Vector2 destination) {
 
         Vector2 movement = position.clone();
         movement.aimAt(destination);
@@ -26,8 +26,10 @@ public class Helicopter {
         movement.normalize();
         movement.setLength(speed);
 
-        movement.x *= Math.max(0.1f,((destination.x - position.x)/destination.x));
-        movement.y *= Math.max(0.1f,((destination.y - position.y)/destination.y));
+        return movement;
+    }
+
+    public void moveStep(Vector2 movement, Vector2 destination) {
 
         float lastDistance = position.distanceTo(destination);
 
