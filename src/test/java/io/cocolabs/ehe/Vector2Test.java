@@ -11,10 +11,11 @@ class Vector2Test {
 
     @Test
     void shouldHomeToTargetPosition() {
-
         //while these are vectors they are being utilized as coord pairs
         Vector2 player = getRandomVector(75, 250);
         Helicopter helicopter = new Helicopter();
+
+        System.out.println("\n" + "player: x:" + player.getX() + " y:" + player.getY());
 
         for (int i = 0; helicopter.getDistanceTo(player) > 1; i++)
         {
@@ -32,16 +33,16 @@ class Vector2Test {
         for (; normalHelicopter.getDistanceTo(player) > 1; stepsWithDefaultSpeed++) {
             normalHelicopter.moveToPosition(player);
         }
-        String format = "Normal helicopter took %d steps to reach target\n";
-        System.out.printf(format, stepsWithDefaultSpeed);
+        String format = "Helicopter (speed: %f) took %d steps to reach target\n";
+        System.out.printf(format, normalHelicopter.getSpeed(), stepsWithDefaultSpeed);
 
-        Helicopter fasterHelicopter = new Helicopter(new Vector2(1, 1), 2.0f);
+        Helicopter fasterHelicopter = new Helicopter(new Vector2(1, 1), 4f);
 
         int stepsWithFastSpeed = 0;
         for (; fasterHelicopter.getDistanceTo(player) > 1; stepsWithFastSpeed++) {
             fasterHelicopter.moveToPosition(player);
         }
-        System.out.printf(format, stepsWithFastSpeed);
+        System.out.printf(format, fasterHelicopter.getSpeed(), stepsWithFastSpeed);
     }
 
     @Test
@@ -51,8 +52,10 @@ class Vector2Test {
         Vector2 player = getRandomVector(75, 250);
         Helicopter helicopter = new Helicopter();
 
+        System.out.println("\n" + "player: x:" + player.getX() + " y:" + player.getY());
+
         float startPosDist = helicopter.getDistanceTo(player);
-        System.out.println("\n" + "startPosDist:" + startPosDist + "\n");
+        System.out.println("startPosDist:" + startPosDist + "\n");
 
         int[][] array = new int[][] {
                 new int[] { 20, 30 },
