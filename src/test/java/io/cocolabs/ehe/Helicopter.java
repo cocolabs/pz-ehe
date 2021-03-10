@@ -44,6 +44,16 @@ public class Helicopter {
         movement.x *= Math.max(0.1f,((destination.x - position.x)/destination.x));
         movement.y *= Math.max(0.1f,((destination.y - position.y)/destination.y));
     }
+
+    public void moveToPosition(Vector2 destination) {
+
+        Vector2 movement = this.setUpMovement(destination);
+
+        moveDampen(movement,destination);
+
+        moveStep(movement, destination);
+    }
+
     public float getDistanceTo(Vector2 target) {
         return position.distanceTo(target);
     }
