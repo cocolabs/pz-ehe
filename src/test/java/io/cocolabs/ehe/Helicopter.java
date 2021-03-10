@@ -37,6 +37,11 @@ public class Helicopter {
         distanceTraveled += lastDistance - position.distanceTo(destination);
     }
 
+    public void moveDampen(Vector2 movement, Vector2 destination) {
+
+        movement.x *= Math.max(0.1f,((destination.x - position.x)/destination.x));
+        movement.y *= Math.max(0.1f,((destination.y - position.y)/destination.y));
+    }
     public float getDistanceTo(Vector2 target) {
         return position.distanceTo(target);
     }
