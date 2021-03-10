@@ -64,7 +64,7 @@ class Vector2Test {
         };
 
         int turns = 0;
-        for (int i = 0; helicopter.getDistanceTo(player) > helicopter.getDistanceTraveled(); i++)
+        for (int i = 0; helicopter.getDistanceTo(player) > 1; i++)
         {
             if (turns < 3 && (helicopter.getDistanceTo(player) > (startPosDist/(turns+1))) )
             {
