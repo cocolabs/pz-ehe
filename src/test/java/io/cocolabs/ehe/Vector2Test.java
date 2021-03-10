@@ -79,6 +79,29 @@ class Vector2Test {
         }
     }
 
+    @Test
+    void shouldPassOverTargetPosition() {
+        //while these are vectors they are being utilized as coord pairs
+        Vector2 player = getRandomVector(75, 250);
+        Helicopter helicopter = new Helicopter();
+
+        System.out.println("player: x:" + player.getX() + " y:" + player.getY());
+        System.out.println("heli start: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY());
+
+        Vector2 movement = helicopter.setUpMovement(player);
+
+        for (int i = 0; ( helicopter.getPositionX() < 15000 && helicopter.getPositionY() < 15000 ); i++)
+        {
+            helicopter.moveStep(movement, player);
+
+            if (helicopter.getDistanceTo(player) < 1 ) {
+                System.out.println("helicopter flew over player at: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY());
+            }
+
+        }
+        System.out.println("heli end: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY());
+    }
+
     private static Vector2 getRandomVector(int min, int max) {
         return new Vector2(RAND.nextInt(max) + min, RAND.nextInt(max) + min);
     }
