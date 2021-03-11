@@ -44,6 +44,11 @@ function eHelicopter:launch()
 	local ref = eHelicopter:playSound(target)
 	ModLogger:debug("Playing helicopter noise (" .. tostring(ref) .. ')')
 	eHelicopter.soundRef = ref
+---@param movement _Vector2
+---@param destination _Vector2
+function eHelicopter.moveDampen(movement, destination)
+	movement.x = movement.x * math.max(0.1,((destination.x - position.x)/destination.x))
+	movement.y = movement.y * math.max(0.1,((destination.y - position.y)/destination.y))
 end
 
 
