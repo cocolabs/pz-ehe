@@ -26,8 +26,11 @@ function eHelicopter:playSound(target)
 end
 
 ---@return boolean
-function eHelicopter:isSoundPlaying()
-	return eHelicopter.emitter and eHelicopter.emitter:isPlaying("Helicopter") or false
+function eHelicopter.isSoundPlaying() --- may not need
+	return eHelicopter.emitter and eHelicopter.emitter.isPlaying("Helicopter") or false
+end
+
+
 function eHelicopter.initPos()
 	---@type position
 	local pos = eHelicopter.pos
