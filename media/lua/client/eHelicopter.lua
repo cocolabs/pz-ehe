@@ -44,6 +44,20 @@ function eHelicopter:launch()
 	local ref = eHelicopter:playSound(target)
 	ModLogger:debug("Playing helicopter noise (" .. tostring(ref) .. ')')
 	eHelicopter.soundRef = ref
+
+---@param destination _Vector2
+function eHelicopter.setUpMovement(destination)
+
+	eHelicopter.movement:set(eHelicopter.pos.x,eHelicopter.pos.y)
+
+	movement:aimAt(destination)
+	movement:normalize()
+	movement:setLength(speed)
+
+	return movement
+end
+
+
 ---@param movement _Vector2
 ---@param destination _Vector2
 function eHelicopter.moveStep(movement)
