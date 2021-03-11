@@ -46,6 +46,19 @@ function eHelicopter:launch()
 	eHelicopter.soundRef = ref
 ---@param movement _Vector2
 ---@param destination _Vector2
+function eHelicopter.moveStep(movement)
+
+	eHelicopter.pos.x = eHelicopter.pos.x+movement.x
+	eHelicopter.pos.y = eHelicopter.pos.y+movement.y
+
+	print("HELI: X:"..eHelicopter.pos.x.."  Y:"..eHelicopter.pos.y)
+
+	eHelicopter.emitter.setPos(eHelicopter.pos.x,eHelicopter.pos.y,eHelicopter.pos.z)
+end
+
+
+---@param movement _Vector2
+---@param destination _Vector2
 function eHelicopter.moveDampen(movement, destination)
 	movement.x = movement.x * math.max(0.1,((destination.x - position.x)/destination.x))
 	movement.y = movement.y * math.max(0.1,((destination.y - position.y)/destination.y))
