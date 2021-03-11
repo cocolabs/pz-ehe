@@ -1,13 +1,18 @@
 ---@class eHelicopter
 ---@field soundRef long
 ---@field emitter FMODSoundEmitter
+---@field pos position
+---@field target _Vector2
+---@field movement _Vector2
 eHelicopter = {}
+eHelicopter.target = { [x]=0, [y]=0 }
+eHelicopter.movement = { [x]=0, [y]=0 }
 
----@param obj IsoMovingObject
----@return FMODSoundEmitter
-local function getFreeEmitterForMovingObject(obj)
-	return getWorld():getFreeEmitter(obj:getX() + 0.5, obj:getY() + 0.5, 20)
-end
+---@class position
+---@field x float
+---@field y float
+---@field z float
+eHelicopter.pos = { [x]=0, [y]=0, [z]=20 }
 
 ---@param target IsoMovingObject
 ---@return long @sound reference number
