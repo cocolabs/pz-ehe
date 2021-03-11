@@ -44,6 +44,13 @@ function eHelicopter:launch()
 	local ref = eHelicopter:playSound(target)
 	ModLogger:debug("Playing helicopter noise (" .. tostring(ref) .. ')')
 	eHelicopter.soundRef = ref
+function eHelicopter.update()
+	eHelicopter.moveStep(eHelicopter.movement)
+	if ( helicopter.pos.x < 15000 and helicopter.pos.y < 15000 ) then
+		eHelicopter.unlaunch()
+	end
+end
+
 function eHelicopter.unlaunch()
 	Events.OnTick.Remove(eHelicopter.update)
 	eHelicopter.emitter.stopAll()
