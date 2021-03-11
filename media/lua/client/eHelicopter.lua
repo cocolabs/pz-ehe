@@ -30,20 +30,38 @@ function eHelicopter:isSoundPlaying()
 	return eHelicopter.emitter and eHelicopter.emitter:isPlaying("Helicopter") or false
 end
 
-function eHelicopter:launch()
 
-	--the -1 is to offset playerIDs starting at 0
-	local numActivePlayers = getNumActivePlayers() - 1
+---@param targetedPlayer IsoMovingObject | IsoPlayer | IsoGameCharacter @ random player if blank
+function eHelicopter.launch(targetedPlayer)
 
-	---target is a random IsoPlayer
-	---@type IsoMovingObject
-	local target = getSpecificPlayer(ZombRand(numActivePlayers))
-	ModLogger:debug("Set helicopter target to player " .. target:getObjectName())
+	if not targetedPlayer then
+		--the -1 is to offset playerIDs starting at 0
+		local numActivePlayers = getNumActivePlayers()-1
+		print("numActivePlayers:"..numActivePlayers)
+		local randNumFromActivePlayers = ZombRand(numActivePlayers)
+		print("randNumFromActivePlayers:"..randNumFromActivePlayers)
+		targetedPlayer = getSpecificPlayer(randNumFromActivePlayers)
+	end
+
+	print("targetedPlayer: "..targetedPlayer:getDescriptor():getForename().." "..targetedPlayer:getDescriptor():getSurname().." (pos:"..targetedPlayer:getX()..","..targetedPlayer:getY())
+
+	eHelicopter.target:set(targetedPlayer:getX(),targetedPlayer:getY())
+	--ModLogger.debug("Set helicopter target to player " .. target.getObjectName())
+
+	eHelicopter.initPos()
 
 	--start playing helicopter sound
-	local ref = eHelicopter:playSound(target)
-	ModLogger:debug("Playing helicopter noise (" .. tostring(ref) .. ')')
+	local ref = eHelicopter.playSound()
+	ModLogger.debug("Playing helicopter noise (" .. tostring(ref) .. ')')
 	eHelicopter.soundRef = ref
+	---not sure if ref is useful for anything
+
+	eHelicopter.setUpMovement(eHelicopter.target)
+
+	Events.OnTick.Add(eHelicopter.update)
+end
+
+
 function eHelicopter.update()
 	eHelicopter.moveStep(eHelicopter.movement)
 	if ( helicopter.pos.x < 15000 and helicopter.pos.y < 15000 ) then
