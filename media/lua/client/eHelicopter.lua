@@ -10,20 +10,14 @@ local function getFreeEmitterForMovingObject(obj)
 end
 
 ---@param target IsoMovingObject
----@return FMODSoundEmitter
-function eHelicopter:createEmitter(target)
-
-	local result = getFreeEmitterForMovingObject(target)
-	ModLogger:debug("Created new helicopter emitter (" .. tostring(result) .. ')')
-	eHelicopter.emitter = result
-	return result
-end
-
----@param target IsoMovingObject
 ---@return long @sound reference number
-function eHelicopter:playSound(target)
-	return eHelicopter:createEmitter(target):playSoundImpl("Helicopter", target)
+function eHelicopter.playSound()
+	eHelicopter.emitter = getWorld().getFreeEmitter(pos.x, pos.y, pos.z)
+	ModLogger.debug("Created new helicopter emitter (" .. tostring(result) .. ')')
+
+	return eHelicopter.emitter.playSoundImpl("Helicopter", self)
 end
+
 
 ---@return boolean
 function eHelicopter.isSoundPlaying() --- may not need
