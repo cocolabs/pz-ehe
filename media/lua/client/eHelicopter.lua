@@ -28,6 +28,27 @@ end
 ---@return boolean
 function eHelicopter:isSoundPlaying()
 	return eHelicopter.emitter and eHelicopter.emitter:isPlaying("Helicopter") or false
+function eHelicopter.initPos()
+	---@type position
+	local pos = eHelicopter.pos
+	--places the helicopter on the "edge" of the map (edge being -15k to 15k)
+	--50/50 chance for which axis is randomized entirely
+	--followed by 50/50 whether the static axis is positive or negative
+	--- there might be a more elegant mathematical implementation for this
+	if ZombRand(101) > 50 then
+		pos.y = ZombRand(0,15000)
+		pos.x = 15000
+		if ZombRand(101) > 50 then
+			pos.x = 0
+		end
+	else
+		pos.x = ZombRand(0,15000)
+		pos.y = 15000
+		if ZombRand(101) > 50 then
+			pos.y = 0
+		end
+	end
+	pos.z = 20
 end
 
 
