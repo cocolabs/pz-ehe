@@ -19,6 +19,19 @@ public class Helicopter {
     }
 
     public Vector2 setUpMovement(Vector2 destination) {
+    /**
+     * Normalizes, lengthens, and aims a Vector2 to another Vector2
+     * @param destination {@code Vector2}
+     * @return normalized and lenghtened {@code Vector2} aimed at destination
+     */
+
+        //Call this method aimAndMoveTo
+        //First you use aimAt then you use setLength
+        //lengthen-ing is basically moving no?
+
+        //Vector2s in essence are infinite lines (linear equations)
+        //lengthening cuts this line to the smallest possible amount which still maintains an angle
+        //otherwise it would be a "point" - that's why there is a lengthen within normalize
 
         Vector2 movement = position.clone();
         movement.aimAt(destination);
@@ -30,6 +43,11 @@ public class Helicopter {
     }
 
     public void moveStep(Vector2 movement, Vector2 destination) {
+    /**
+     * Move Helicopter along {@code Vector2} movement; destination is used to track travel distance
+     * @param movement
+     * @param destination
+     */
 
         float lastDistance = position.distanceTo(destination);
 
@@ -40,11 +58,20 @@ public class Helicopter {
     }
 
     public void moveDampen(Vector2 movement, Vector2 destination) {
+    /**
+     * Slows down rate of movement along {@code Vector2} movement the closer it gets to {@code Vector2} destination
+     * @param movement
+     * @param destination
+     */
 
         movement.x *= Math.max(0.1f,((destination.x - position.x)/destination.x));
         movement.y *= Math.max(0.1f,((destination.y - position.y)/destination.y));
     }
 
+    /**
+     * Utilizes: setVectorAndAim, dampenVectorMovement, stepAlongVector to move Helicopter towards {@code Vector2} destination
+     * @param destination
+     */
     public void moveToPosition(Vector2 destination) {
 
         Vector2 movement = this.setUpMovement(destination);
@@ -57,6 +84,8 @@ public class Helicopter {
     public float getDistanceTo(Vector2 target) {
         return position.distanceTo(target);
     }
+
+    //region Getters and Setters
 
     public void setSpeed(float speed) {
         this.speed = speed;
@@ -71,6 +100,7 @@ public class Helicopter {
     public float getPositionX() { return this.position.x; }
 
     public float getPositionY() { return this.position.y; }
+    //endregion
 
     @Override
     public String toString() {
