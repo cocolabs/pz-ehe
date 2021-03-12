@@ -64,17 +64,23 @@ class Vector2Test {
                 new int[] { 160, 190 },
         };
 
-        int turns = 3;
+        int turnsInitial = 3;
+        int turnsLeft = turnsInitial;
 
         for (int i = 0; helicopter.getDistanceTo(player) > 1; i++) {
-            float max = (startPosDist/3)*(turns);
-            float min = (startPosDist/3)*(turns-1);
 
-            if (turns > 0 && helicopter.getDistanceTo(player) >= min && helicopter.getDistanceTo(player) <= max ) {
-                player.x = array[turns-1][0];
-                player.y = array[turns-1][1];
-                System.out.println("--["+turns+"] player moved to: x:" + player.x + " y:" + player.y + " heli-to-player:" + helicopter.getDistanceTo(player));
-                turns--;
+            //max and min multi-purposes turnsInitial and turnsCurrent to move the player
+            //movements are total distance divided by turnsInitial * turnsLeft,
+            //Example: turnsInitial is 3, the player will move at the following points 0%, 33.33~% and 66.66~% of the trip
+            float max = (startPosDist/turnsInitial)*(turnsLeft);
+            float min = (startPosDist/turnsInitial)*(turnsLeft-1);
+
+            //Move player while in-between specific range of distance
+            if (turnsLeft > 0 && helicopter.getDistanceTo(player) >= min && helicopter.getDistanceTo(player) <= max ) {
+                player.x = array[turnsLeft-1][0];
+                player.y = array[turnsLeft-1][1];
+                System.out.println("[turn: "+turnsLeft+"] player moved to: x:" + player.x + " y:" + player.y + " heli-to-player:" + helicopter.getDistanceTo(player));
+                turnsLeft--;
             }
             helicopter.moveToPosition(player);
             System.out.println("i:" + i + ' ' + helicopter);
@@ -103,21 +109,27 @@ class Vector2Test {
                 new int[] { 160, 190 },
         };
 
-        int turns = 3;
+        int turnsInitial = 3;
+        int turnsLeft = turnsInitial;
 
         for (int i = 0; helicopter.getPositionX() < 1500 && helicopter.getPositionY() < 1500
                 && helicopter.getPositionX() > 0 && helicopter.getPositionY() > 0 ; i++) {
 
-            float max = (startPosDist/3)*(turns);
-            float min = (startPosDist/3)*(turns-1);
+            //max and min multi-purposes turnsInitial and turnsCurrent to move the player
+            //movements are total distance divided by turnsInitial * turnsLeft,
+            //Example: turnsInitial is 3, the player will move at the following points 0%, 33.33~% and 66.66~% of the trip
+            float max = (startPosDist/turnsInitial)*(turnsLeft);
+            float min = (startPosDist/turnsInitial)*(turnsLeft-1);
 
-            if (turns > 0 && helicopter.getDistanceTo(player) >= min && helicopter.getDistanceTo(player) <= max ) {
-                player.x = array[turns-1][0];
-                player.y = array[turns-1][1];
-                System.out.println("--["+turns+"] player moved to: x:" + player.x + " y:" + player.y + " heli-to-player:" + helicopter.getDistanceTo(player));
-                turns--;
+            //Move player while in-between specific range of distance
+            if (turnsLeft > 0 && helicopter.getDistanceTo(player) >= min && helicopter.getDistanceTo(player) <= max ) {
+                player.x = array[turnsLeft-1][0];
+                player.y = array[turnsLeft-1][1];
+                System.out.println("[turn: "+turnsLeft+"] player moved to: x:" + player.x + " y:" + player.y + " heli-to-player:" + helicopter.getDistanceTo(player));
+                turnsLeft--;
             }
 
+            //Checks if the heli comes with in a range of 10 before no longer aiming at the player
             if (!HeliPassedPlayer) {
                 movement = helicopter.setVectorAndAim(player);
                 helicopter.dampenVectorMovement(movement, player);
@@ -126,7 +138,6 @@ class Vector2Test {
                     System.out.println("\nhelicopter flew over player at: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY()+"\n");
                 }
             }
-
             helicopter.stepAlongVector(movement, player);
             System.out.println("i:" + i + ' ' + helicopter);
 
