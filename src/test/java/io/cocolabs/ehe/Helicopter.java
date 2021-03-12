@@ -74,11 +74,9 @@ public class Helicopter {
      */
     public void moveToPosition(Vector2 destination) {
 
-        Vector2 movement = this.setUpMovement(destination);
-
-        moveDampen(movement,destination);
-
-        moveStep(movement, destination);
+        Vector2 movement = this.setVectorAndAim(destination);
+        dampenVectorMovement(movement,destination);
+        stepAlongVector(movement, destination);
     }
 
     public float getDistanceTo(Vector2 target) {
@@ -91,15 +89,22 @@ public class Helicopter {
         this.speed = speed;
     }
 
-    public float getSpeed() { return this.speed; }
+    public float getSpeed() {
+        return this.speed;
+    }
 
     public float getDistanceTraveled() {
         return distanceTraveled;
     }
 
-    public float getPositionX() { return this.position.x; }
+    public float getPositionX() {
+        return this.position.x;
+    }
 
-    public float getPositionY() { return this.position.y; }
+    public float getPositionY() {
+        return this.position.y;
+    }
+
     //endregion
 
     @Override
