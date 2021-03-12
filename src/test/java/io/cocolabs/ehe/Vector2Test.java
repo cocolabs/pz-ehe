@@ -49,8 +49,9 @@ class Vector2Test {
     void shouldHomeToMovingTargetPosition() {
 
         //while these are vectors they are being utilized as coord pairs
-        Vector2 player = getRandomVector(75, 250);
+        Vector2 player = getRandomVector(15, 25);
         Helicopter helicopter = new Helicopter();
+        helicopter.setSpeed(25);
 
         System.out.println("\n" + "player: x:" + player.getX() + " y:" + player.getY());
 
@@ -58,21 +59,22 @@ class Vector2Test {
         System.out.println("startPosDist:" + startPosDist + "\n");
 
         int[][] array = new int[][] {
-                new int[] { 20, 30 },
+                new int[] { 120, 130 },
                 new int[] { 35, 40 },
-                new int[] { 60, 90 },
+                new int[] { 160, 190 },
         };
 
-        int turns = 0;
-        for (int i = 0; helicopter.getDistanceTo(player) > 1; i++)
-        {
-            if (turns < 3 && (helicopter.getDistanceTo(player) > (startPosDist/(turns+1))) )
-            {
-                player.x = array[turns][0];
-                player.y = array[turns][1];
-                turns++;
+        int turns = 3;
 
-                System.out.println("--player_pos: x:" + player.x + " y:" + player.x + " heli 2 player:" + helicopter.getDistanceTo(player));
+        for (int i = 0; helicopter.getDistanceTo(player) > 1; i++) {
+            float max = (startPosDist/3)*(turns);
+            float min = (startPosDist/3)*(turns-1);
+
+            if (turns > 0 && helicopter.getDistanceTo(player) >= min && helicopter.getDistanceTo(player) <= max ) {
+                player.x = array[turns-1][0];
+                player.y = array[turns-1][1];
+                System.out.println("--["+turns+"] player moved to: x:" + player.x + " y:" + player.y + " heli-to-player:" + helicopter.getDistanceTo(player));
+                turns--;
             }
             helicopter.moveToPosition(player);
             System.out.println("i:" + i + ' ' + helicopter);
