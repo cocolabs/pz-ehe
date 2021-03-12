@@ -82,26 +82,56 @@ class Vector2Test {
     }
 
     @Test
-    void shouldPassOverTargetPosition() {
+    void shouldPassOverMovingTargetPosition() {
+
         //while these are vectors they are being utilized as coord pairs
-        Vector2 player = getRandomVector(75, 250);
+        Vector2 player = getRandomVector(15, 25);
         Helicopter helicopter = new Helicopter();
+        helicopter.setSpeed(25);
 
-        System.out.println("player: x:" + player.getX() + " y:" + player.getY());
-        System.out.println("heli start: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY());
+        Vector2 movement = helicopter.setVectorAndAim(player);
 
-        Vector2 movement = helicopter.setUpMovement(player);
+        boolean HeliPassedPlayer = false;
+        System.out.println("\n" + "player: x:" + player.getX() + " y:" + player.getY());
 
-        for (int i = 0; ( helicopter.getPositionX() < 15000 && helicopter.getPositionY() < 15000 ); i++)
-        {
-            helicopter.moveStep(movement, player);
+        float startPosDist = helicopter.getDistanceTo(player);
+        System.out.println("startPosDist:" + startPosDist + "\n");
 
-            if (helicopter.getDistanceTo(player) < 1 ) {
-                System.out.println("helicopter flew over player at: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY());
+        int[][] array = new int[][] {
+                new int[] { 120, 130 },
+                new int[] { 35, 40 },
+                new int[] { 160, 190 },
+        };
+
+        int turns = 3;
+
+        for (int i = 0; helicopter.getPositionX() < 1500 && helicopter.getPositionY() < 1500
+                && helicopter.getPositionX() > 0 && helicopter.getPositionY() > 0 ; i++) {
+
+            float max = (startPosDist/3)*(turns);
+            float min = (startPosDist/3)*(turns-1);
+
+            if (turns > 0 && helicopter.getDistanceTo(player) >= min && helicopter.getDistanceTo(player) <= max ) {
+                player.x = array[turns-1][0];
+                player.y = array[turns-1][1];
+                System.out.println("--["+turns+"] player moved to: x:" + player.x + " y:" + player.y + " heli-to-player:" + helicopter.getDistanceTo(player));
+                turns--;
             }
 
+            if (!HeliPassedPlayer) {
+                movement = helicopter.setVectorAndAim(player);
+                helicopter.dampenVectorMovement(movement, player);
+                if (helicopter.getDistanceTo(player) < 10 ) {
+                    HeliPassedPlayer = true;
+                    System.out.println("\nhelicopter flew over player at: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY()+"\n");
+                }
+            }
+
+            helicopter.stepAlongVector(movement, player);
+            System.out.println("i:" + i + ' ' + helicopter);
+
         }
-        System.out.println("heli end: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY());
+        System.out.println("\nheli end: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY());
     }
 
     private static Vector2 getRandomVector(int min, int max) {
