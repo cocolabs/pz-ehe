@@ -1,5 +1,6 @@
 package io.cocolabs.ehe;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import zombie.iso.Vector2;
 
@@ -22,6 +23,7 @@ class Vector2Test {
         {
             helicopter.moveToPosition(player, null, true);
             System.out.println("i:" + i + ' ' + helicopter);
+            Assertions.assertTrue(i < 4855);
         }
     }
 
@@ -34,6 +36,7 @@ class Vector2Test {
         for (; helicopter.getDistanceTo(player) > 1; stepsWithDefaultSpeed++)
         {
             helicopter.moveToPosition(player, null, true);
+            Assertions.assertTrue(stepsWithDefaultSpeed < 4855);
         }
         String format = "Helicopter (speed: %f) took %d steps to reach target\n";
         System.out.printf(format, helicopter.getSpeed(), stepsWithDefaultSpeed);
@@ -45,6 +48,7 @@ class Vector2Test {
         for (; fasterHelicopter.getDistanceTo(player) > 1; stepsWithFastSpeed++)
         {
             fasterHelicopter.moveToPosition(player, null, true);
+            Assertions.assertTrue(stepsWithFastSpeed < 4855);
         }
         System.out.printf(format, fasterHelicopter.getSpeed(), stepsWithFastSpeed);
 
@@ -68,6 +72,7 @@ class Vector2Test {
             turnsLeft = movePlayerInTurns(startPosDist, turnsLeft, player);
             helicopter.moveToPosition(player, null, true);
             System.out.println("i:" + i + ' ' + helicopter);
+            Assertions.assertTrue(i < 2173);
         }
     }
 
@@ -105,6 +110,7 @@ class Vector2Test {
             System.out.println("i:" + i + ' ' + helicopter);
         }
         System.out.println("\nend: x:" + helicopter.getPositionX() + " y:" + helicopter.getPositionY());
+        Assertions.assertTrue(heliPassedPlayer);
     }
 
     @Test
@@ -113,18 +119,22 @@ class Vector2Test {
         // test if x is out of bounds (minimum)
         helicopter.position.x = -1;
         helicopter.position.y = -1;
+        Assertions.assertFalse(helicopter.isInBounds());
 
         // test if y is out of bounds (maximum)
         helicopter.position.x = 1501;
         helicopter.position.y = 1501;
+        Assertions.assertFalse(helicopter.isInBounds());
 
         // test if x is in bounds (minimum)
         helicopter.position.x = 0;
         helicopter.position.y = 0;
+        Assertions.assertTrue(helicopter.isInBounds());
 
         // test if y is in of bounds (maximum)
         helicopter.position.x = 1500;
         helicopter.position.y = 1500;
+        Assertions.assertTrue(helicopter.isInBounds());
     }
 
     /**
