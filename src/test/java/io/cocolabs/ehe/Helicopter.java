@@ -25,14 +25,6 @@ public class Helicopter {
      * @param destination {@code Vector2}
      * @return normalized and lenghtened {@code Vector2} aimed at destination
      */
-
-        //Call this method aimAndMoveTo
-        //First you use aimAt then you use setLength
-        //lengthen-ing is basically moving no?
-
-        //Vector2s in essence are infinite lines (linear equations)
-        //lengthening cuts this line to the smallest possible amount which still maintains an angle
-        //otherwise it would be a "point" - that's why there is a lengthen within normalize
     public Vector2 setVectorAndAim(Vector2 destination, boolean dampen) {
 
         Vector2 movement = position.clone();
@@ -74,7 +66,9 @@ public class Helicopter {
     }
 
     /**
-     * Utilizes: setVectorAndAim, dampenVectorMovement, stepAlongVector to move Helicopter towards {@code Vector2} destination
+	 * {@code stepAlongVector} to move Helicopter towards {@code Vector2} destination
+	 * @see #setVectorAndAim(Vector2, boolean)
+	 * @see #dampenVectorMovement(Vector2, Vector2)
      * @param destination
      */
     public void moveToPosition(Vector2 destination, Vector2 movement, boolean dampen) {
