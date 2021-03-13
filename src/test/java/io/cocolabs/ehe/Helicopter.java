@@ -4,9 +4,8 @@ import zombie.iso.Vector2;
 
 public class Helicopter {
 
-    private final Vector2 position;
-    private float speed;
-    private float distanceTraveled;
+    final Vector2 position;
+    private float speed, distanceTraveled;
 
 	public static final int MAX_XY = 1500;
 	public static final int MIN_XY = 0;
@@ -26,7 +25,6 @@ public class Helicopter {
      * @param destination {@code Vector2}
      * @return normalized and lenghtened {@code Vector2} aimed at destination
      */
-    public Vector2 setVectorAndAim(Vector2 destination) {
 
         //Call this method aimAndMoveTo
         //First you use aimAt then you use setLength
@@ -35,6 +33,7 @@ public class Helicopter {
         //Vector2s in essence are infinite lines (linear equations)
         //lengthening cuts this line to the smallest possible amount which still maintains an angle
         //otherwise it would be a "point" - that's why there is a lengthen within normalize
+    public Vector2 setVectorAndAim(Vector2 destination, boolean dampen) {
 
         Vector2 movement = position.clone();
         movement.aimAt(destination);
@@ -42,6 +41,9 @@ public class Helicopter {
         movement.normalize();
         movement.setLength(speed);
 
+        if (dampen) {
+            dampenVectorMovement(movement, destination);
+        }
         return movement;
     }
 
@@ -75,10 +77,14 @@ public class Helicopter {
      * Utilizes: setVectorAndAim, dampenVectorMovement, stepAlongVector to move Helicopter towards {@code Vector2} destination
      * @param destination
      */
-    public void moveToPosition(Vector2 destination) {
+    public void moveToPosition(Vector2 destination, Vector2 movement, boolean dampen) {
 
-        Vector2 movement = this.setVectorAndAim(destination);
-        dampenVectorMovement(movement,destination);
+        if (movement == null) {
+            movement = this.setVectorAndAim(destination, dampen);
+        }
+        if (dampen) {
+            dampenVectorMovement(movement, destination);
+        }
         stepAlongVector(movement, destination);
     }
 
