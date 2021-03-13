@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Vector2Test" type="JUnit" factoryName="JUnit" repeat_count="10" repeat_mode="N Times">
+    <module name="pz-ehe.test" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="io.cocolabs.ehe.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="io.cocolabs.ehe" />
+    <option name="MAIN_CLASS_NAME" value="io.cocolabs.ehe.Vector2Test" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
