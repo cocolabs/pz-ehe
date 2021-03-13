@@ -8,6 +8,9 @@ public class Helicopter {
     private float speed;
     private float distanceTraveled;
 
+	public static final int MAX_XY = 1500;
+	public static final int MIN_XY = 0;
+
     public Helicopter() {
         this.position = new Vector2(1, 1);
         this.speed = 1.0f;
@@ -82,6 +85,17 @@ public class Helicopter {
     public float getDistanceTo(Vector2 target) {
         return position.distanceTo(target);
     }
+
+	/**
+	 * Returns {@code true} helicopter is in defined bounds
+	 */
+	public boolean isInBounds() {
+
+		if (this.position.x > MAX_XY || this.position.x < MIN_XY) {
+			return false;
+		}
+		return !(this.position.y > MAX_XY || this.position.y < MIN_XY);
+	}
 
     //region Getters and Setters
 
